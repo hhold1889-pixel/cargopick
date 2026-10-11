@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="수출입 포워딩 견적, 한 번에 받고 비교하세요. 추가 실비청구 없이 올인 견적으로 비교하는 카고픽.">
+<meta name="description" content="수출입 포워딩 견적, 한 번에 받고 비교하세요. 운임부터 로컬 차지까지 총액으로 비교하는 카고픽.">
 <title>카고픽 CargoPick</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -194,13 +194,105 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
   .mcta .btn{width:100%}
 }
 @media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
+
+/* hero v2 */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding-block:52px 12px}
+.hero>*{min-width:0}
+.kicker{display:inline-block;font-size:13px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:5px 10px;border-radius:8px;margin-bottom:16px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn-lg{padding:16px 26px;font-size:17px}
+.inv-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 24px 50px -30px rgba(23,33,43,.45)}
+.inv-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.inv-head strong{font-size:17px}
+.inv-route{margin-top:4px;font-size:13px;color:var(--muted)}
+.inv-row{display:grid;grid-template-columns:1fr 88px 88px 20px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.inv-row.head{font-size:12px;color:var(--muted);padding-top:14px}
+.inv-row.head span:nth-child(2),.inv-row.head span:nth-child(3){text-align:right}
+.inv-row .n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.inv-row.bad{background:var(--warn-soft);margin-inline:-10px;padding-inline:10px;border-radius:8px;border-bottom-color:transparent}
+.inv-row.bad .n:nth-child(3){color:var(--warn);font-weight:600}
+.st{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700}
+.st.ok{background:var(--good-soft);color:var(--good)}
+.st.ok::before{content:"✓"}
+.st.no{background:var(--warn);color:var(--surface)}
+.st.no::before{content:"!"}
+.inv-alert{margin-top:14px;display:flex;flex-direction:column;gap:4px;padding:14px;border-radius:12px;background:var(--accent-soft);font-size:14px}
+.inv-alert strong{color:var(--ink)}
+.inv-alert span{color:var(--muted)}
+.step.key{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.step .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:6px;margin-bottom:6px}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:32px;padding-block:32px 8px}.inv-card{max-width:520px}}
+@media (max-width:600px){.hero-cta{flex-direction:column}.hero-cta .btn{width:100%}.inv-row{grid-template-columns:1fr 70px 76px 20px;gap:6px;font-size:13px}.inv-row .n{font-size:12px}.inv-card{padding:18px}}
+
+/* status page */
+.is-status .top nav a.link{display:none}
+.st-wrap{padding-block:28px 48px;max-width:760px}
+.demo-banner{background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:600;margin-bottom:18px}
+.st-head .kicker{margin-bottom:10px;font-family:var(--mono)}
+.st-head h1{font-size:clamp(24px,4.4vw,34px);font-weight:700;letter-spacing:-.01em}
+.st-meta{color:var(--muted);margin-top:6px;font-size:15px}
+.st-timer{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.tm-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tm-top span{font-weight:700}
+#tm-clock{font-size:clamp(30px,6vw,42px);font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.tm-bar{height:8px;border-radius:8px;background:var(--line);margin-top:12px;overflow:hidden}
+.tm-bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:8px;transition:width 1s linear}
+#tm-note{margin-top:12px;color:var(--muted);font-size:14px}
+.st-msg{margin-top:16px;background:var(--good-soft);color:var(--good);border-radius:12px;padding:14px 16px;font-size:15px;font-weight:600}
+.st-list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:32px;margin-bottom:12px}
+.st-list-head h2{font-size:20px}
+.st-list-head h2 span{color:var(--accent)}
+.btn-sm{padding:8px 14px;font-size:14px;border-radius:10px}
+#st-list{display:flex;flex-direction:column;gap:12px}
+.qc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.qc.best{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.qc.chosen{border-color:var(--good);box-shadow:0 0 0 1px var(--good) inset}
+.qc-top{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center}
+.qc-top>*{min-width:0}
+.qc .avatar{width:44px;height:44px}
+.qc-name strong{display:block;font-size:17px}
+.qc-name span{font-size:13px;color:var(--muted)}
+.qc-price{text-align:right}
+.qc-price strong{display:block;font-size:21px;font-variant-numeric:tabular-nums}
+.qc-price small{font-size:12px;color:var(--muted)}
+.qc details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.qc summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--accent)}
+.qc details .bd-row{font-size:14px;padding:9px 0}
+.qc-memo{margin-top:10px;font-size:14px;color:var(--muted);background:var(--bg);border-radius:10px;padding:10px 12px}
+.qc-act{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.qc-act .btn{flex:1;padding:12px 16px;font-size:15px}
+.badge.b-chosen{background:var(--good);color:var(--surface);font-size:13px;padding:5px 10px}
+.st-empty{background:var(--surface);border:1.5px dashed var(--line);border-radius:16px;padding:28px 20px;text-align:center}
+.st-empty p{font-weight:700;margin-top:12px}
+.st-empty small{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.dots i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent);margin:0 4px;opacity:.35}
+.st-error{margin-top:12px;background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:14px 16px;font-size:14px;font-weight:600}
+.st-after{margin-top:32px;background:var(--accent-soft);border-radius:18px;padding:22px}
+.st-after .tag{display:inline-block;font-size:12px;font-weight:700;color:var(--accent);background:var(--surface);padding:2px 8px;border-radius:6px}
+.st-after h3{font-size:18px;margin-top:8px}
+.st-after p{color:var(--muted);font-size:15px;margin-top:6px}
+.st-foot{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+@media (prefers-reduced-motion:no-preference){
+  .qc.new{animation:qcIn .7s ease-out}
+  @keyframes qcIn{from{transform:translateY(14px);box-shadow:0 0 0 3px var(--accent)}to{transform:none}}
+  .dots i{animation:dot 1.2s infinite}
+  .dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
+  @keyframes dot{0%,100%{opacity:.35}50%{opacity:1}}
+}
+@media (max-width:600px){
+  .qc-top{grid-template-columns:40px 1fr}
+  .qc .avatar{width:40px;height:40px}
+  .qc-price{grid-column:1/-1;text-align:left;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+  .qc-price strong{order:-1}
+  .st-timer{padding:18px}
+}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#"><span class="mark"><i></i></span>카고픽</a>
+    <a class="logo" href="./"><span class="mark"><i></i></span>카고픽</a>
     <nav>
       <a class="link" href="#how">이용방법</a>
       <a class="link" href="#compare">견적 비교</a>
@@ -210,38 +302,34 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <section class="hero">
-    <h1>포워딩 견적,<br><b>한 번에 받고 비교하세요</b></h1>
-    <p class="sub">요청서 한 장이면 여러 포워더의 올인원 견적이 도착해요. 운임부터 로컬 차지까지 총액으로 비교합니다.</p>
-
-    <div class="tiles" role="list">
-      <button class="tile" type="button" data-mode="fcl" role="listitem">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="1.5"/><path d="M7 7v11M11 7v11M15 7v11M19 7v11"/></svg></span>
-        <strong>해상 FCL</strong><span>컨테이너 단위 대량 화물</span>
-      </button>
-      <button class="tile" type="button" data-mode="lcl" role="listitem">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="8" height="8" rx="1"/><rect x="13" y="11" width="8" height="8" rx="1"/><rect x="8" y="3" width="8" height="8" rx="1"/></svg></span>
-        <strong>해상 LCL</strong><span>소량 혼재 화물</span>
-      </button>
-      <button class="tile" type="button" data-mode="air" role="listitem">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 13l18-7-5 14-3-6-6-1z"/><path d="M13 14l3-3"/></svg></span>
-        <strong>항공</strong><span>급한 화물, 고가 화물</span>
-      </button>
-      <button class="tile" type="button" data-mode="exp" role="listitem">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg></span>
-        <strong>특송·소포</strong><span>샘플, 소형 박스</span>
-      </button>
-      <button class="tile" type="button" data-mode="cc" role="listitem">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg></span>
-        <strong>통관만</strong><span>운송은 해결, 통관만 필요</span>
-      </button>
+    <div class="hero-copy">
+      <span class="kicker">수출입 포워딩 견적 비교</span>
+      <h1>견적은 올인원으로,<br><b>청구서는 저희가 먼저 확인해요</b></h1>
+      <p class="sub">운임만 싼 견적에 속지 마세요. 총액으로 비교해 드리고, 선적이 끝나면 최종 인보이스를 견적과 한 줄씩 맞춰봐요.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#request">무료 견적 받기</a>
+        <a class="btn btn-line btn-lg" href="#how">청구서 확인이란?</a>
+      </div>
     </div>
 
-    <div class="trust">
-      <span>견적 요청 무료</span>
-      <span>운임·할증·로컬 차지 총액 비교</span>
-      <span>선적 후 청구서 대조</span>
+    <div class="inv-card" aria-label="청구서 확인 리포트 예시">
+      <div class="inv-head">
+        <strong>청구서 확인 리포트</strong>
+        <span class="badge b-warn">차이 1건 발견</span>
+      </div>
+      <p class="inv-route"><span class="mono">KRPUS → NLRTM</span> · 40HC × 1 · 포워더 A</p>
+      <div class="inv-row head"><span>항목</span><span>견적</span><span>청구</span><span></span></div>
+      <div class="inv-row"><span>해상운임 O/F</span><span class="n">$1,950</span><span class="n">$1,950</span><i class="st ok" aria-label="일치"></i></div>
+      <div class="inv-row"><span>THC (부산)</span><span class="n">₩180,000</span><span class="n">₩180,000</span><i class="st ok" aria-label="일치"></i></div>
+      <div class="inv-row"><span>서류발급비</span><span class="n">₩40,000</span><span class="n">₩40,000</span><i class="st ok" aria-label="일치"></i></div>
+      <div class="inv-row bad"><span>기타 로컬 차지</span><span class="n">₩12,000</span><span class="n">₩100,000</span><i class="st no" aria-label="불일치"></i></div>
+      <div class="inv-alert">
+        <strong>견적에 없던 ₩88,000을 찾았어요.</strong>
+        <span>카고픽이 포워더에 근거를 요청했고, 소명이 없으면 청구에서 빼도록 조정해요.</span>
+      </div>
+      <p class="ex">화면 예시입니다. 실제 업체·금액이 아닙니다.</p>
     </div>
   </section>
 
@@ -254,7 +342,7 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
       <div class="steps">
         <div class="step"><span class="num">1</span><div><h3>견적 요청</h3><p>구간과 화물 정보를 입력하거나 패킹리스트를 올려주세요. 모르는 항목은 비워두셔도 돼요.</p></div></div>
         <div class="step"><span class="num">2</span><div><h3>견적 도착, 총액 비교</h3><p>여러 포워더가 같은 양식으로 견적을 보내요. 해상운임이 아니라 실제로 내실 총액 기준으로 비교해 드려요.</p></div></div>
-        <div class="step"><span class="num">3</span><div><h3>선적 후 청구서 확인</h3><p>최종 인보이스를 견적과 맞춰보고, 설명 없는 추가 요금이 있으면 저희가 먼저 확인해요.</p></div></div>
+        <div class="step key"><span class="num">3</span><div><span class="tag">카고픽만의 서비스</span><h3>선적 후 청구서 확인</h3><p>선적이 끝나면 최종 인보이스를 받아 견적과 항목별로 대조해요. 견적에 없던 요금이나 금액 차이가 있으면 고객님이 묻기 전에 저희가 먼저 포워더에 근거를 요청하고, 결과를 정리해 알려드려요.</p></div></div>
       </div>
 
       <div class="phone" aria-label="견적 도착 화면 예시">
@@ -352,7 +440,7 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
             <div class="f full">
               <label class="upload" for="docs">
                 <svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 001 1h14a1 1 0 001-1v-3"/></svg>
-                <span><strong>패킹리스트 · 인보이스 첨부</strong><span>PDF, 엑셀, 사진 모두 가능 (선택)</span></span>
+                <span><strong>패킹리스트 · 인보이스 첨부</strong><span>PDF, 엑셀, 사진 · 최대 3개, 개당 5MB (선택)</span></span>
                 <input id="docs" type="file" multiple accept=".pdf,.xls,.xlsx,.csv,.jpg,.jpeg,.png">
               </label>
               <div class="files" id="files" hidden></div>
@@ -362,7 +450,7 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
 
         <div class="wz-step" data-step="3" hidden>
           <h3>견적 받을 연락처</h3>
-          <p class="hint">견적이 도착하면 이메일로 알려드려요.</p>
+          <p class="hint">접수하면 견적 확인 페이지 링크를 이메일로 보내드려요. 견적이 도착하는 대로 그 페이지에 하나씩 올라와요.</p>
           <div class="fields">
             <div class="f"><label for="co">회사명</label><input id="co" placeholder="예: (주)한빛트레이딩"></div>
             <div class="f"><label for="pic">담당자</label><input id="pic" placeholder="이름 / 직함"></div>
@@ -379,18 +467,6 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
         </div>
       </form>
 
-      <div class="done" id="done" hidden>
-        <div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-        <h3>견적 요청서가 준비됐어요</h3>
-        <p>'메일로 보내기'를 누르면 내용이 채워진 메일이 열려요. 패킹리스트 같은 첨부 파일은 메일에 직접 붙여주세요.<br>메일 앱이 열리지 않으면 요청서를 복사해 <span class="mono js-email"></span> 로 보내주세요.</p>
-        <pre id="out"></pre>
-        <div class="acts">
-          <a class="btn btn-primary" id="mail" href="#">메일로 보내기</a>
-          <button class="btn btn-soft" type="button" id="copy">요청서 복사</button>
-          <button class="btn btn-line" type="button" id="edit">수정하기</button>
-        </div>
-        <p class="copied" id="copied" hidden></p>
-      </div>
     </div>
   </section>
 
@@ -420,91 +496,281 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
   </footer>
 </main>
 
+<section id="status" class="wrap st-wrap" hidden>
+  <div class="demo-banner" id="st-demo" hidden>미리보기 화면이에요. 실제로 접수되지 않았고, 아래 견적은 예시입니다.</div>
+
+  <div class="st-head">
+    <span class="kicker" id="st-id">견적 요청</span>
+    <h1 id="st-route">견적 요청을 불러오는 중이에요</h1>
+    <p class="st-meta" id="st-meta"></p>
+  </div>
+
+  <div class="st-timer">
+    <div class="tm-top"><span id="tm-label">견적 마감까지</span><strong id="tm-clock" class="mono">--:--:--</strong></div>
+    <div class="tm-bar"><i id="tm-fill"></i></div>
+    <p id="tm-note">포워더들에게 요청서를 보냈어요. 견적이 도착하는 대로 아래에 하나씩 올라와요.</p>
+  </div>
+
+  <div class="st-msg" id="st-chosen" hidden></div>
+
+  <div class="st-list-head">
+    <h2>도착한 견적 <span id="st-count">0</span>건</h2>
+    <button class="btn btn-line btn-sm" type="button" id="st-refresh">새로고침</button>
+  </div>
+  <div id="st-list"></div>
+  <div class="st-empty" id="st-empty">
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p>포워더들의 견적을 기다리고 있어요</p>
+    <small>견적은 운임·할증료·로컬 차지·통관비를 모두 포함한 총액으로 받아요.</small>
+  </div>
+  <div class="st-error" id="st-error" hidden></div>
+
+  <div class="st-after">
+    <span class="tag">카고픽만의 서비스</span>
+    <h3>선적이 끝나면 청구서도 확인해 드려요</h3>
+    <p>최종 인보이스를 보내주시면 고른 견적과 항목별로 맞춰봐요. 견적에 없던 요금이 있으면 고객님이 묻기 전에 저희가 먼저 포워더에 근거를 요청해요.</p>
+  </div>
+
+  <p class="st-foot">이 페이지 주소는 접수 확인 메일로도 보내드렸어요. 언제든 다시 열어 확인하세요.<br>문의: <span class="mono js-email"></span></p>
+</section>
+
 <div class="mcta"><a class="btn btn-primary" href="#request">무료 견적 받기</a></div>
 
 <script>
-/* ===== 설정: 견적 요청을 받을 이메일 주소로 바꾸세요 ===== */
+/* ================= 설정 =================
+   CONTACT_EMAIL : 고객에게 보여줄 문의 이메일
+   SCRIPT_URL    : 구글 Apps Script 웹 앱 주소 (https://script.google.com/macros/s/.../exec)
+                   비워두면 '미리보기 모드'로 동작하고 실제로 접수되지 않아요.
+========================================== */
 var CONTACT_EMAIL = "your-email@gmail.com";
-/* ======================================================= */
+var SCRIPT_URL = "";
+
 (function(){
-  document.querySelectorAll('.js-email').forEach(function(el){el.textContent=CONTACT_EMAIL});
-  /* breakdown tabs */
-  var data={
+  var $ = function(id){ return document.getElementById(id); };
+  document.querySelectorAll('.js-email').forEach(function(el){ el.textContent = CONTACT_EMAIL; });
+  var reqId = new URLSearchParams(location.search).get('id');
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function money(x){ if (typeof x === 'number') return '₩' + x.toLocaleString('ko-KR'); return String(x == null ? '' : x); }
+  function moneyNum(x){ if (typeof x === 'number') return x; var n = parseInt(String(x || '').replace(/[^\d]/g, ''), 10); return isNaN(n) ? Infinity : n; }
+  function day(x){ if (!x) return ''; var s = String(x); return /^\d{4}-\d{2}-\d{2}T/.test(s) ? s.slice(0, 10) : s; }
+
+  /* ---------- 견적 비교 탭 (랜딩) ---------- */
+  var data = {
     a:{rows:[["해상운임 O/F","$1,950"],["유류할증료 BAF","포함"],["THC (부산)","₩180,000"],["서류발급비 DOC","₩40,000"],["수출 통관 수수료","₩30,000"],["기타 로컬 차지","₩12,000"]],total:"₩3,412,000",msg:["good","총액 최저. 할증료가 운임에 포함돼 있어요."]},
     b:{rows:[["해상운임 O/F","$1,780"],["유류할증료 BAF","$160"],["THC (부산)","₩180,000"],["서류발급비 DOC","₩65,000",1],["수출 통관 수수료","₩30,000"],["기타 로컬 차지","₩88,000",1]],total:"₩3,598,000",msg:["warn","해상운임은 가장 싸지만 할증료와 로컬 차지가 따로 붙어 총액은 2위예요."]},
     c:{rows:[["해상운임 O/F","$2,100"],["유류할증료 BAF","포함"],["THC (부산)","₩180,000"],["서류발급비 DOC","₩40,000"],["수출 통관 수수료","₩35,000"],["기타 로컬 차지","₩10,000"]],total:"₩3,655,000",msg:["warn","로컬 차지는 낮지만 운임이 높고 견적 유효기간이 3일로 짧아요."]}
   };
-  var bd=document.getElementById('bd'),tabs=document.querySelectorAll('.bd-tab');
-  function show(k){
-    var d=data[k],h='';
-    d.rows.forEach(function(r){h+='<div class="bd-row'+(r[2]?' hi':'')+'"><span>'+r[0]+'</span><span>'+r[1]+'</span></div>'});
-    h+='<div class="bd-total"><span>총액 (환율 1,610원 가정)</span><span>'+d.total+'</span></div>';
-    h+='<div class="bd-msg '+d.msg[0]+'">'+d.msg[1]+'</div>';
-    bd.innerHTML=h;
-    tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.k===k?'true':'false')});
-    bd.setAttribute('aria-labelledby','tab-'+k);
+  var bd = $('bd'), tabs = document.querySelectorAll('.bd-tab');
+  function showTab(k){
+    var d = data[k], h = '';
+    d.rows.forEach(function(r){ h += '<div class="bd-row' + (r[2] ? ' hi' : '') + '"><span>' + r[0] + '</span><span>' + r[1] + '</span></div>'; });
+    h += '<div class="bd-total"><span>총액 (환율 1,610원 가정)</span><span>' + d.total + '</span></div>';
+    h += '<div class="bd-msg ' + d.msg[0] + '">' + d.msg[1] + '</div>';
+    bd.innerHTML = h;
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.k === k ? 'true' : 'false'); });
+    bd.setAttribute('aria-labelledby', 'tab-' + k);
   }
-  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.k)})});
-  show('a');
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ showTab(t.dataset.k); }); });
+  if (bd) showTab('a');
 
-  /* wizard */
-  var form=document.getElementById('rq'),steps=form.querySelectorAll('.wz-step'),bars=document.querySelectorAll('.progress i'),
-      prev=document.getElementById('prev'),next=document.getElementById('next'),err=document.getElementById('err'),
-      done=document.getElementById('done'),out=document.getElementById('out'),copied=document.getElementById('copied'),cur=1;
-  function v(id){return document.getElementById(id).value.trim()}
-  function r(n){var e=form.querySelector('input[name="'+n+'"]:checked');return e?e.value:''}
+  /* ---------- 견적 요청 (3단계) ---------- */
+  var form = $('rq'), steps = form.querySelectorAll('.wz-step'), bars = document.querySelectorAll('.progress i'),
+      prev = $('prev'), next = $('next'), err = $('err'), cur = 1;
+  function v(id){ return $(id).value.trim(); }
+  function r(n){ var e = form.querySelector('input[name="' + n + '"]:checked'); return e ? e.value : ''; }
   function go(n){
-    cur=n;
-    steps.forEach(function(s){s.hidden=+s.dataset.step!==n});
-    bars.forEach(function(b,i){b.classList.toggle('on',i<n)});
-    prev.hidden=n===1;next.textContent=n===3?'견적 요청하기':'다음';err.hidden=true;
+    cur = n;
+    steps.forEach(function(s){ s.hidden = +s.dataset.step !== n; });
+    bars.forEach(function(b, i){ b.classList.toggle('on', i < n); });
+    prev.hidden = n === 1; next.textContent = n === 3 ? '견적 요청하기' : '다음'; err.hidden = true;
   }
-  function fail(m){err.textContent=m;err.hidden=false}
-  form.addEventListener('submit',function(e){
+  function fail(m){ err.textContent = m; err.hidden = false; }
+  function readFiles(){
+    var fl = Array.prototype.slice.call($('docs').files);
+    if (fl.length > 3) return Promise.reject('첨부 파일은 3개까지 올릴 수 있어요.');
+    for (var i = 0; i < fl.length; i++) if (fl[i].size > 5 * 1024 * 1024) return Promise.reject(fl[i].name + ' 파일이 5MB를 넘어요. 접수 후 확인 메일에 회신으로 보내주세요.');
+    return Promise.all(fl.map(function(f){
+      return new Promise(function(ok, no){
+        var fr = new FileReader();
+        fr.onload = function(){ ok({ name: f.name, type: f.type || 'application/octet-stream', data: String(fr.result).split(',')[1] }); };
+        fr.onerror = function(){ no('파일을 읽지 못했어요: ' + f.name); };
+        fr.readAsDataURL(f);
+      });
+    }));
+  }
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-    if(cur===2){
-      var miss=[];if(!v('pol'))miss.push('출발지');if(!v('pod'))miss.push('도착지');if(!v('item'))miss.push('품목');
-      if(miss.length)return fail(miss.join(', ')+'을(를) 입력해주세요.');
+    if (cur === 2){
+      var miss = []; if (!v('pol')) miss.push('출발지'); if (!v('pod')) miss.push('도착지'); if (!v('item')) miss.push('품목');
+      if (miss.length) return fail(miss.join(', ') + '을(를) 입력해주세요.');
     }
-    if(cur<3)return go(cur+1);
-    if(!v('co'))return fail('회사명을 입력해주세요.');
-    var em=v('email');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return fail('이메일 형식을 확인해주세요. 예: you@company.com');
-    var fl=document.getElementById('docs').files,names=[];for(var i=0;i<fl.length;i++)names.push(fl[i].name);
-    var L=['[카고픽 견적 요청서]','구분: '+r('dir')+' / '+r('mode'),'구간: '+v('pol')+' → '+v('pod'),'인코텀즈: '+(v('inco')||'미정'),'희망 출고일: '+(v('date')||'미정'),'품목: '+v('item'),
-      '수량: '+(v('qty')||'-')+' / 중량: '+(v('wt')?v('wt')+' kg':'-')+' / 부피: '+(v('cbm')?v('cbm')+' CBM':'-'),
-      '회사: '+v('co')+(v('pic')?' / '+v('pic'):''),'연락처: '+em+(v('tel')?' / '+v('tel'):'')];
-    if(names.length)L.push('첨부: '+names.join(', '));
-    if(v('memo'))L.push('추가 요청: '+v('memo'));
-    out.textContent=L.join('\n');
-    var subj='[카고픽 견적 요청] '+v('co')+' / '+r('mode')+' '+v('pol')+' → '+v('pod');
-    document.getElementById('mail').href='mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(L.join('\n'));
-    form.hidden=true;document.querySelector('.progress').hidden=true;done.hidden=false;copied.hidden=true;
-  });
-  prev.addEventListener('click',function(){go(cur-1)});
-  document.getElementById('docs').addEventListener('change',function(){
-    var f=this.files,el=document.getElementById('files');
-    if(!f.length){el.hidden=true;return}
-    el.textContent=f.length===1?f[0].name+' 선택됨':f[0].name+' 외 '+(f.length-1)+'개 선택됨';el.hidden=false;
-  });
-  document.getElementById('edit').addEventListener('click',function(){
-    done.hidden=true;form.hidden=false;document.querySelector('.progress').hidden=false;go(1);
-  });
-  document.getElementById('copy').addEventListener('click',function(){
-    function sel(){var rg=document.createRange();rg.selectNodeContents(out);var s=window.getSelection();s.removeAllRanges();s.addRange(rg);copied.textContent='텍스트를 선택했어요. 복사해서 보내주세요.';copied.hidden=false}
-    try{navigator.clipboard.writeText(out.textContent).then(function(){copied.textContent='복사했어요.';copied.hidden=false},sel)}catch(e){sel()}
-  });
-
-  /* category tiles → preselect mode */
-  var map={fcl:'m-fcl',lcl:'m-lcl',air:'m-air',exp:'m-exp',cc:'m-cc'};
-  document.querySelectorAll('.tile').forEach(function(t){
-    t.addEventListener('click',function(){
-      document.getElementById(map[t.dataset.mode]).checked=true;
-      if(!done.hidden){done.hidden=true;form.hidden=false;document.querySelector('.progress').hidden=false}
-      go(1);
-      document.getElementById('request').scrollIntoView({behavior:'smooth',block:'start'});
+    if (cur < 3) return go(cur + 1);
+    if (!v('co')) return fail('회사명을 입력해주세요.');
+    var em = v('email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return fail('이메일 형식을 확인해주세요. 예: you@company.com');
+    var payload = { dir:r('dir'), mode:r('mode'), pol:v('pol'), pod:v('pod'), inco:v('inco'), date:v('date'), item:v('item'),
+      qty:v('qty'), wt:v('wt'), cbm:v('cbm'), co:v('co'), pic:v('pic'), email:em, tel:v('tel'), memo:v('memo') };
+    err.hidden = true; next.disabled = true; prev.disabled = true; next.textContent = '접수 중…';
+    readFiles().then(function(files){
+      if (!SCRIPT_URL){
+        try { sessionStorage.setItem('cp_demo', JSON.stringify(payload)); sessionStorage.setItem('cp_demo_t', String(Date.now())); } catch(_){}
+        return 'demo';
+      }
+      payload.files = files;
+      return fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+        .then(function(res){ return res.json(); })
+        .then(function(j){ if (!j.ok) throw new Error(j.error || 'fail'); return j.id; });
+    }).then(function(id){
+      location.href = location.pathname + '?id=' + encodeURIComponent(id);
+    }).catch(function(x){
+      fail(typeof x === 'string' ? x : '접수하지 못했어요. 잠시 후 다시 시도하거나 ' + CONTACT_EMAIL + ' 로 메일 주세요.');
+      next.disabled = false; prev.disabled = false; next.textContent = '견적 요청하기';
     });
   });
+  prev.addEventListener('click', function(){ go(cur - 1); });
+  $('docs').addEventListener('change', function(){
+    var f = this.files, el = $('files');
+    if (!f.length){ el.hidden = true; return; }
+    el.textContent = f.length === 1 ? f[0].name + ' 선택됨' : f[0].name + ' 외 ' + (f.length - 1) + '개 선택됨'; el.hidden = false;
+  });
+
+  /* ---------- 견적 확인 페이지 (?id=...) ---------- */
+  if (!reqId) return;
+  document.body.classList.add('is-status');
+  $('main').hidden = true;
+  document.querySelector('.mcta').hidden = true;
+  $('status').hidden = false;
+  var topBtn = document.querySelector('.top nav .btn');
+  topBtn.textContent = '새 견적 요청'; topBtn.href = location.pathname + '#request';
+  document.title = '견적 확인 · 카고픽';
+  window.scrollTo(0, 0);
+
+  var isDemo = reqId === 'demo', DAY = 24 * 3600 * 1000;
+  var created = null, seen = {}, firstLoad = true, chosen = '', pending = '', lastData = null, poll = null;
+
+  /* 미리보기용 예시 데이터 */
+  var demoT0 = Date.now();
+  try { demoT0 = +sessionStorage.getItem('cp_demo_t') || demoT0; } catch(_){}
+  var demoReq = null;
+  try { demoReq = JSON.parse(sessionStorage.getItem('cp_demo') || 'null'); } catch(_){}
+  demoReq = demoReq || { dir:'수출', mode:'해상 FCL', pol:'부산항', pod:'Rotterdam, NL', inco:'FOB', item:'화장품 원료 (비위험물)', qty:'40HC × 1', co:'예시 회사' };
+  var demoQuotes = [
+    { at:4,  forwarder:'포워더 B', total:3598000, valid:'2026-11-05', schedule:'주 2회 · 약 32일', memo:'BAF와 로컬 차지가 별도로 청구돼요.', items:[['해상운임','$1,780'],['할증료','$160'],['THC','₩180,000'],['서류발급비','₩65,000'],['통관수수료','₩30,000'],['기타 로컬 차지','₩88,000']] },
+    { at:9,  forwarder:'포워더 A', total:3412000, valid:'2026-11-10', schedule:'주 3회 · 약 30일', memo:'할증료가 운임에 포함된 견적이에요.', items:[['해상운임','$1,950'],['할증료','포함'],['THC','₩180,000'],['서류발급비','₩40,000'],['통관수수료','₩30,000'],['기타 로컬 차지','₩12,000']] },
+    { at:15, forwarder:'포워더 C', total:3655000, valid:'2026-10-21', schedule:'주 1회 · 약 29일', memo:'유효기간이 짧아요.', items:[['해상운임','$2,100'],['할증료','포함'],['THC','₩180,000'],['서류발급비','₩40,000'],['통관수수료','₩35,000'],['기타 로컬 차지','₩10,000']] }
+  ];
+  function demoData(){
+    var s = (Date.now() - demoT0) / 1000, q = demoReq;
+    return { ok:true, request:{ id:'DEMO', createdAt:new Date(demoT0).toISOString(), dir:q.dir, mode:q.mode, pol:q.pol, pod:q.pod, inco:q.inco, item:q.item, qty:q.qty, wt:q.wt, cbm:q.cbm, co:q.co, selected:chosen },
+      quotes: demoQuotes.filter(function(x){ return s >= x.at; }) };
+  }
+
+  function load(){
+    if (isDemo) return Promise.resolve(demoData());
+    if (!SCRIPT_URL) return Promise.resolve({ ok:false, error:'no_backend' });
+    return fetch(SCRIPT_URL + '?id=' + encodeURIComponent(reqId)).then(function(res){ return res.json(); });
+  }
+  function showError(msg){ var e = $('st-error'); e.textContent = msg; e.hidden = false; $('st-empty').hidden = true; }
+
+  function render(d){
+    lastData = d;
+    var q = d.request;
+    $('st-demo').hidden = !isDemo;
+    $('st-id').textContent = '요청번호 ' + q.id;
+    $('st-route').textContent = (q.pol || '') + ' → ' + (q.pod || '');
+    var meta = [q.dir, q.mode, q.inco, q.qty, q.item].filter(Boolean).join(' · ');
+    $('st-meta').textContent = meta;
+    created = new Date(q.createdAt).getTime();
+    chosen = q.selected || chosen;
+
+    var list = d.quotes.slice().sort(function(a, b){ return moneyNum(a.total) - moneyNum(b.total); });
+    var best = list.length ? moneyNum(list[0].total) : null;
+    $('st-count').textContent = list.length;
+    $('st-empty').hidden = list.length > 0;
+    document.title = (list.length ? '(' + list.length + ') ' : '') + '견적 확인 · 카고픽';
+
+    var html = '', open = {};
+    document.querySelectorAll('#st-list details[open]').forEach(function(dt){ open[dt.closest('.qc').getAttribute('data-key')] = 1; });
+    list.forEach(function(x){
+      var key = x.forwarder + '|' + x.total, isNew = !seen[key] && !firstLoad;
+      seen[key] = 1;
+      var isBest = list.length > 1 && moneyNum(x.total) === best, isChosen = chosen && chosen === x.forwarder;
+      var rows = (x.items || []).map(function(it){ return '<div class="bd-row"><span>' + esc(it[0]) + '</span><span>' + esc(money(it[1])) + '</span></div>'; }).join('');
+      var sub = [x.valid ? '유효 ~' + esc(day(x.valid)) : '', esc(x.schedule || '')].filter(Boolean).join(' · ');
+      var act;
+      if (chosen) act = isChosen ? '<span class="badge b-chosen">선택한 견적</span>' : '';
+      else if (pending === x.forwarder) act = '<button class="btn btn-primary" type="button" data-confirm="' + esc(x.forwarder) + '">이 견적으로 확정하기</button><button class="btn btn-line" type="button" data-cancel>취소</button>';
+      else act = '<button class="btn btn-soft" type="button" data-pick="' + esc(x.forwarder) + '">이 견적으로 진행</button>';
+      html += '<article data-key="' + esc(key) + '" class="qc' + (isBest ? ' best' : '') + (isNew ? ' new' : '') + (isChosen ? ' chosen' : '') + '">' +
+        '<div class="qc-top"><span class="avatar">' + esc(String(x.forwarder).replace(/^\s*포워더\s*/, '').trim().charAt(0) || '?') + '</span>' +
+        '<div class="qc-name"><strong>' + esc(x.forwarder) + '</strong><span>' + sub + '</span></div>' +
+        '<div class="qc-price">' + (isBest ? '<span class="badge b-best">최저 총액</span>' : '') + '<strong>' + esc(money(x.total)) + '</strong><small>올인원 총액</small></div></div>' +
+        (rows || x.memo ? '<details' + (open[key] ? ' open' : '') + '><summary>견적 상세 보기</summary>' + rows + (x.memo ? '<p class="qc-memo">' + esc(x.memo) + '</p>' : '') + '</details>' : '') +
+        (act ? '<div class="qc-act">' + act + '</div>' : '') + '</article>';
+    });
+    $('st-list').innerHTML = html;
+
+    var cm = $('st-chosen');
+    if (chosen){ cm.hidden = false; cm.textContent = chosen + ' 견적으로 진행을 요청하셨어요. 카고픽 담당자가 곧 연락드려 선적 일정을 잡아드릴게요.'; }
+    else cm.hidden = true;
+
+    if (isDemo && list.length === demoQuotes.length && poll){ clearInterval(poll); poll = null; }
+    firstLoad = false;
+    tick();
+  }
+
+  function refresh(){
+    return load().then(function(d){
+      if (!d.ok){
+        showError(d.error === 'not_found' ? '요청을 찾을 수 없어요. 접수 메일의 링크를 다시 확인해 주세요.'
+          : d.error === 'no_backend' ? '아직 접수 시스템이 연결되지 않았어요. ' + CONTACT_EMAIL + ' 로 문의해 주세요.'
+          : '견적을 불러오지 못했어요. 잠시 후 새로고침해 주세요.');
+        return;
+      }
+      $('st-error').hidden = true;
+      render(d);
+    }).catch(function(){ showError('견적을 불러오지 못했어요. 잠시 후 새로고침해 주세요.'); });
+  }
+
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function tick(){
+    if (created == null) return;
+    var left = created + DAY - Date.now(), n = lastData ? lastData.quotes.length : 0;
+    if (left <= 0){
+      $('tm-label').textContent = '견적 수집 마감';
+      $('tm-clock').textContent = '00:00:00';
+      $('tm-fill').style.width = '100%';
+      $('tm-note').textContent = n ? '도착한 견적을 비교해 보시고 진행할 견적을 골라주세요.' : '아직 도착한 견적이 없어요. 카고픽 담당자가 직접 연락드릴게요.';
+      return;
+    }
+    var s = Math.floor(left / 1000);
+    $('tm-clock').textContent = pad(Math.floor(s / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
+    $('tm-fill').style.width = Math.min(100, (1 - left / DAY) * 100).toFixed(2) + '%';
+    $('tm-note').textContent = n ? '견적 ' + n + '건이 도착했어요. 마감 전까지 더 도착할 수 있어요.' : '포워더들에게 요청서를 보냈어요. 견적이 도착하는 대로 아래에 하나씩 올라와요.';
+  }
+
+  $('st-list').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-pick')){ pending = b.getAttribute('data-pick'); render(lastData); return; }
+    if (b.hasAttribute('data-cancel')){ pending = ''; render(lastData); return; }
+    if (b.hasAttribute('data-confirm')){
+      var fw = b.getAttribute('data-confirm');
+      b.disabled = true; b.textContent = '전송 중…';
+      var done = function(){ chosen = fw; pending = ''; render(lastData); };
+      if (isDemo) return done();
+      fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify({ action:'select', id:reqId, forwarder:fw }) })
+        .then(function(res){ return res.json(); })
+        .then(function(j){ if (!j.ok) throw 0; done(); })
+        .catch(function(){ b.disabled = false; b.textContent = '이 견적으로 확정하기'; showError('선택을 전송하지 못했어요. 다시 시도하거나 ' + CONTACT_EMAIL + ' 로 알려주세요.'); });
+    }
+  });
+  $('st-refresh').addEventListener('click', refresh);
+  document.addEventListener('visibilitychange', function(){ if (!document.hidden) refresh(); });
+
+  refresh();
+  setInterval(tick, 1000);
+  poll = setInterval(refresh, isDemo ? 2000 : 60000);
 })();
 </script>
 </body>
