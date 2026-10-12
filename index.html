@@ -286,6 +286,43 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
   .qc-price strong{order:-1}
   .st-timer{padding:18px}
 }
+
+/* forwarder quote page */
+.fq-brief{margin:22px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 20px;display:grid}
+.fq-brief div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.fq-brief div:last-child{border-bottom:0}
+.fq-brief dt{color:var(--muted)}
+.fq-brief dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.fq-deadline{margin-top:12px;font-size:14px;font-weight:600;color:var(--accent)}
+.fq-deadline.late{color:var(--warn)}
+.fq-form{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:18px}
+.fq-form h2{font-size:20px}
+.fq-form .hint{color:var(--muted);font-size:14px;margin-top:4px}
+.fq-items{display:flex;flex-direction:column;gap:8px}
+.fq-row{display:grid;grid-template-columns:1fr 160px 110px;gap:8px;align-items:center}
+.fq-row label{font-size:15px;font-weight:600}
+.fq-row label small,.fq-rate small{color:var(--muted);font-weight:400;font-size:12px}
+.fq-row input{text-align:right;font-variant-numeric:tabular-nums}
+.fq-row input:disabled{opacity:.45}
+.fq-rate{display:grid;grid-template-columns:1fr 160px 110px;gap:8px;align-items:center;padding-top:10px;border-top:1px dashed var(--line)}
+.fq-rate label{font-size:15px;font-weight:600}
+.fq-rate input{text-align:right}
+.fq-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;background:var(--accent-soft);border-radius:12px;padding:14px 16px}
+.fq-total span{font-weight:700}
+.fq-total strong{font-size:22px;color:var(--accent);font-variant-numeric:tabular-nums}
+.fq-agree{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:600;background:var(--bg);border-radius:12px;padding:14px;cursor:pointer}
+.fq-agree input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--accent)}
+.fq-done{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px 24px;text-align:center}
+.fq-done .check{width:56px;height:56px;border-radius:50%;background:var(--good-soft);display:grid;place-items:center;margin:0 auto 14px}
+.fq-done .check svg{width:28px;height:28px;stroke:var(--good);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.fq-done p{color:var(--muted);font-size:14px;margin:8px 0 18px}
+@media (max-width:600px){
+  .fq-form{padding:18px}
+  .fq-row,.fq-rate{grid-template-columns:1fr 92px}
+  .fq-row label,.fq-rate label{grid-column:1/-1}
+  .fq-row input,.fq-rate input{grid-column:1}
+  .fq-brief div{grid-template-columns:88px 1fr}
+}
 </style>
 </head>
 <body>
@@ -534,6 +571,60 @@ footer{margin-top:56px;padding-block:28px;border-top:1px solid var(--line);color
   <p class="st-foot">이 페이지 주소는 접수 확인 메일로도 보내드렸어요. 언제든 다시 열어 확인하세요.<br>문의: <span class="mono js-email"></span></p>
 </section>
 
+<section id="fq" class="wrap st-wrap" hidden>
+  <div class="demo-banner" id="fq-demo" hidden>미리보기 화면이에요. 제출해도 저장되지 않아요.</div>
+
+  <div class="st-head">
+    <span class="kicker">포워더 견적 제출</span>
+    <h1 id="fq-route">요청을 불러오는 중이에요</h1>
+    <p class="st-meta" id="fq-meta"></p>
+  </div>
+
+  <div class="st-error" id="fq-error" hidden></div>
+
+  <div id="fq-body" hidden>
+    <dl class="fq-brief" id="fq-brief"></dl>
+    <p class="fq-deadline" id="fq-deadline"></p>
+
+    <form id="fqf" class="fq-form" novalidate>
+      <div>
+        <h2>올인원 견적</h2>
+        <p class="hint">고객은 아래 항목을 모두 더한 총액으로 견적을 비교해요. 견적에 없는 비용은 선적 후 청구서 확인에서 차이로 표시돼요.</p>
+      </div>
+
+      <div class="fq-items" id="fq-items"></div>
+
+      <div class="fq-rate">
+        <label for="fq-rate">적용 환율 <small>USD 1 = 원</small></label>
+        <input id="fq-rate" inputmode="decimal" placeholder="예: 1,385">
+      </div>
+
+      <div class="fq-total"><span>총액 (원)</span><strong id="fq-total">₩0</strong></div>
+
+      <div class="fields">
+        <div class="f"><label for="fq-valid">견적 유효기간</label><input id="fq-valid" type="date"></div>
+        <div class="f"><label for="fq-sched">스케줄 / 소요일</label><input id="fq-sched" placeholder="예: 주 3회, 약 30일"></div>
+        <div class="f full"><label for="fq-memo">메모 <small>(선택) 기타 로컬 차지 내역, 조건 등</small></label><textarea id="fq-memo" placeholder="예: 기타 로컬 차지 = WFG ₩4,000 + CSS ₩8,000"></textarea></div>
+        <div class="f"><label for="fq-co">포워더 회사명</label><input id="fq-co" placeholder="예: (주)OO로지스틱스"></div>
+        <div class="f"><label for="fq-pic">담당자</label><input id="fq-pic" placeholder="이름 / 직함"></div>
+        <div class="f full"><label for="fq-contact">연락처</label><input id="fq-contact" placeholder="이메일 또는 전화번호"></div>
+      </div>
+
+      <label class="fq-agree"><input type="checkbox" id="fq-agree"><span>위 금액 외에 추가 비용이 없음을 확인합니다. 견적에 없는 비용은 근거 없이 청구하지 않습니다.</span></label>
+
+      <p class="err" id="fq-err" hidden></p>
+      <button class="btn btn-primary" type="submit" id="fq-submit">견적 제출하기</button>
+    </form>
+
+    <div class="fq-done" id="fq-done" hidden>
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h3>견적이 제출됐어요</h3>
+      <p>카고픽이 항목을 검토한 뒤 고객에게 전달해요.<br>수정이 필요하면 같은 링크에서 다시 제출해 주세요. 가장 최근 견적으로 검토해요.</p>
+      <button class="btn btn-line" type="button" id="fq-again">다시 제출하기</button>
+    </div>
+  </div>
+</section>
+
 <div class="mcta"><a class="btn btn-primary" href="#request">무료 견적 받기</a></div>
 
 <script>
@@ -634,6 +725,112 @@ var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywVM_ZkvGWheXJWRoUeZL
     if (!f.length){ el.hidden = true; return; }
     el.textContent = f.length === 1 ? f[0].name + ' 선택됨' : f[0].name + ' 외 ' + (f.length - 1) + '개 선택됨'; el.hidden = false;
   });
+
+  /* ---------- 포워더 견적 제출 페이지 (?quote=...&k=...) ---------- */
+  var fqParams = new URLSearchParams(location.search), fqId = fqParams.get('quote');
+  if (fqId) {
+    var fqKey = fqParams.get('k') || '', fqDemo = fqId === 'demo' || !SCRIPT_URL;
+    document.body.classList.add('is-status');
+    $('main').hidden = true;
+    document.querySelector('.mcta').hidden = true;
+    $('fq').hidden = false;
+    var topNav = document.querySelector('.top nav'); if (topNav) topNav.hidden = true;
+    document.title = '견적 제출 · 카고픽';
+    window.scrollTo(0, 0);
+
+    var ITEMS = [['운임','USD'],['할증료','USD'],['THC','KRW'],['서류발급비','KRW'],['통관수수료','KRW'],['기타 로컬 차지','KRW']];
+    var UNITS = [['USD','USD'],['KRW','원'],['포함','포함'],['없음','해당 없음']];
+    $('fq-items').innerHTML = ITEMS.map(function(it, i){
+      return '<div class="fq-row"><label for="fq-a' + i + '">' + it[0] + (i === 0 ? ' <small>(필수)</small>' : '') + '</label>' +
+        '<input id="fq-a' + i + '" inputmode="decimal" placeholder="금액">' +
+        '<select id="fq-u' + i + '" aria-label="' + it[0] + ' 단위">' +
+        UNITS.filter(function(u){ return i > 0 || (u[0] !== '포함' && u[0] !== '없음'); })
+             .map(function(u){ return '<option value="' + u[0] + '"' + (u[0] === it[1] ? ' selected' : '') + '>' + u[1] + '</option>'; }).join('') +
+        '</select></div>';
+    }).join('');
+
+    function numOf(s){ var n = parseFloat(String(s || '').replace(/[^\d.]/g, '')); return isNaN(n) ? null : n; }
+    function calc(){
+      var rate = numOf($('fq-rate').value), total = 0, needRate = false, out = [];
+      ITEMS.forEach(function(it, i){
+        var u = $('fq-u' + i).value, a = numOf($('fq-a' + i).value), inp = $('fq-a' + i);
+        inp.disabled = u === '포함' || u === '없음';
+        if (u === '포함'){ out.push('포함'); return; }
+        if (u === '없음'){ out.push(''); return; }
+        if (a == null){ out.push(''); return; }
+        if (u === 'USD'){ needRate = true; out.push('$' + a.toLocaleString('en-US')); if (rate) total += a * rate; }
+        else { out.push('₩' + Math.round(a).toLocaleString('ko-KR')); total += a; }
+      });
+      total = Math.round(total);
+      $('fq-total').textContent = needRate && !rate ? '환율을 입력해 주세요' : '₩' + total.toLocaleString('ko-KR');
+      return { total: total, items: out, rate: rate, needRate: needRate };
+    }
+    $('fqf').addEventListener('input', calc);
+    $('fqf').addEventListener('change', calc);
+    calc();
+
+    function fqFail(m){ $('fq-err').textContent = m; $('fq-err').hidden = false; }
+    function showBrief(q){
+      $('fq-route').textContent = (q.pol || '') + ' → ' + (q.pod || '');
+      $('fq-meta').textContent = '요청번호 ' + q.id + (q.dir ? ' · ' + q.dir : '') + (q.mode ? ' · ' + q.mode : '');
+      var rows = [['인코텀즈', q.inco], ['희망 출고일', q.date], ['품목', q.item], ['수량', q.qty],
+                  ['중량', q.wt ? q.wt + ' kg' : ''], ['부피', q.cbm ? q.cbm + ' CBM' : ''], ['추가 요청', q.memo],
+                  ['첨부 자료', q.hasFiles ? '있음. 카고픽이 별도로 전달해 드려요.' : '']];
+      $('fq-brief').innerHTML = rows.filter(function(r){ return r[1]; })
+        .map(function(r){ return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
+      var dl = new Date(new Date(q.createdAt).getTime() + 24 * 3600 * 1000);
+      var late = Date.now() > dl.getTime();
+      $('fq-deadline').textContent = (late ? '견적 마감 시간이 지났어요. 지금 제출해도 검토는 하지만 고객에게 늦게 전달될 수 있어요. 마감: ' : '견적 마감: ') +
+        dl.toLocaleString('ko-KR', { month:'long', day:'numeric', weekday:'short', hour:'2-digit', minute:'2-digit' });
+      $('fq-deadline').classList.toggle('late', late);
+      $('fq-demo').hidden = !fqDemo;
+      $('fq-body').hidden = false;
+    }
+
+    if (fqDemo){
+      showBrief({ id:'DEMO', createdAt:new Date().toISOString(), dir:'수출', mode:'해상 FCL', pol:'부산항', pod:'Rotterdam, NL', inco:'FOB',
+        date:'', item:'화장품 원료 (비위험물)', qty:'40HC × 1', wt:'18,500', cbm:'', memo:'', hasFiles:false });
+    } else {
+      fetch(SCRIPT_URL + '?action=brief&id=' + encodeURIComponent(fqId) + '&k=' + encodeURIComponent(fqKey))
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (!d.ok){
+            $('fq-route').textContent = '견적 요청을 열 수 없어요';
+            var e = $('fq-error'); e.hidden = false;
+            e.textContent = '링크가 올바르지 않거나 만료됐어요. 카고픽에서 받은 링크를 다시 확인해 주세요. 문의: ' + CONTACT_EMAIL;
+            return;
+          }
+          showBrief(d.request);
+        })
+        .catch(function(){ var e = $('fq-error'); e.hidden = false; e.textContent = '요청을 불러오지 못했어요. 잠시 후 새로고침해 주세요.'; });
+    }
+
+    $('fqf').addEventListener('submit', function(e){
+      e.preventDefault();
+      var c = calc(), miss = [];
+      if (numOf($('fq-a0').value) == null) miss.push('운임');
+      if (!$('fq-valid').value) miss.push('유효기간');
+      if (!$('fq-co').value.trim()) miss.push('회사명');
+      if (!$('fq-pic').value.trim()) miss.push('담당자');
+      if (!$('fq-contact').value.trim()) miss.push('연락처');
+      if (miss.length) return fqFail(miss.join(', ') + '을(를) 입력해 주세요.');
+      if (c.needRate && !c.rate) return fqFail('USD 금액이 있어요. 적용 환율을 입력해 주세요.');
+      if (!$('fq-agree').checked) return fqFail('추가 비용 확인란에 체크해 주세요.');
+      $('fq-err').hidden = true;
+      var payload = { action:'quote', id:fqId, k:fqKey, forwarder:$('fq-co').value.trim(), pic:$('fq-pic').value.trim(),
+        contact:$('fq-contact').value.trim(), total:c.total, items:c.items, rate:c.rate || '', valid:$('fq-valid').value,
+        schedule:$('fq-sched').value.trim(), memo:$('fq-memo').value.trim() };
+      var btn = $('fq-submit'); btn.disabled = true; btn.textContent = '제출 중…';
+      var finish = function(){ $('fqf').hidden = true; $('fq-done').hidden = false; btn.disabled = false; btn.textContent = '견적 제출하기'; window.scrollTo(0, 0); };
+      if (fqDemo) return finish();
+      fetch(SCRIPT_URL, { method:'POST', body: JSON.stringify(payload) })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ if (!j.ok) throw 0; finish(); })
+        .catch(function(){ btn.disabled = false; btn.textContent = '견적 제출하기'; fqFail('제출하지 못했어요. 잠시 후 다시 시도하거나 ' + CONTACT_EMAIL + ' 로 보내주세요.'); });
+    });
+    $('fq-again').addEventListener('click', function(){ $('fq-done').hidden = true; $('fqf').hidden = false; });
+    return;
+  }
 
   /* ---------- 견적 확인 페이지 (?id=...) ---------- */
   if (!reqId) return;
